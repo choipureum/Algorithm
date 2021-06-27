@@ -1,4 +1,4 @@
-    private ArrayList<Integer> getPrime(int N) {
+    public ArrayList<Integer> getPrime(int N) {
         boolean[] isPrime = new boolean[N+1];
         ArrayList<Integer> primes = new ArrayList<>();
         
