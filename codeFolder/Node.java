@@ -1,3 +1,4 @@
+// TreeNode
 class TreeNode{
     int val;
     TreeNode left,right;
@@ -5,3 +6,13 @@ class TreeNode{
         this.val = x;
     }
 }
+// Linked List Node
+class ListNode{
+    int val;
+    ListNode next;
+    ListNode(int x)
+    {
+        this.val = x;
+    }
+}
+
