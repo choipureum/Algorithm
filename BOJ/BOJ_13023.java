@@ -61,7 +61,7 @@ public class Main {
 
             if (isLine) {
                 return;
-            }
+            } 
         }
         visited[start] = false; // 일직선이 아닐 경우, 방문한 지점은 모두 false 처리.
     }
