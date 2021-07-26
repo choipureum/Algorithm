@@ -1,0 +1,71 @@
+package com.company;
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    static int m,n;
+    static int [][] dirs = {{0,1},{1,0},{-1,0},{0,-1}};
+    static ArrayList<Integer> [] graph; //인접리스트
+    static boolean [] visited;
+    static boolean found = false;
+    public static void main(String[] args) throws IOException
+    {
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken()); // 6(노드수: 사람의 수)
+        m = Integer.parseInt(st.nextToken()); // 5(관계수: 친구관계의 수)
+
+        graph = new ArrayList[n];
+        visited = new boolean[n];
+
+        for(int i=0;i<n;i++)
+        {
+            graph[i] = new ArrayList<Integer>();
+        }
+        for(int i=0;i<m;i++) {
+            st = new StringTokenizer(br.readLine());
+            int n1 = Integer.parseInt(st.nextToken());
+            int n2 = Integer.parseInt(st.nextToken());
+            graph[n1].add(n2);
+            graph[n2].add(n1);
+        }
+        //print(graph);
+        for(int i=0;i<n;i++)
+        {
+            visited = new boolean[n];
+            dfs(i,1,visited);
+        }
+        bw.write(found?'1':'0');
+        bw.flush();
+    }
+    public static void dfs(int now, int cnt, boolean [] visited) throws IOException
+    {
+        if(cnt == 5)
+        {
+            found = true;
+            return;
+        }
+        if(found) return;
+
+        visited[now] = true;
+        for(int graphItem: graph[now])
+        {
+            if(!visited[graphItem])
+            {
+                dfs(graphItem,cnt++,visited);
+            }
+        }
+        visited[now] = false; //일직선이 아닐경우 모두 false;
+    }
+
+    public static void print(ArrayList<Integer>[] graph)
+    {
+        for(int i=0;i<n;i++)
+        {
+            System.out.println(graph[i]);
+        }
+    }
+
+}
