@@ -13,21 +13,21 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Queue<Integer> Q = new LinkedList<>();
+        Queue<Integer> q = new LinkedList<>();
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int K = sc.nextInt();
-        int[] dist = new int[100001];
+        int N = sc.nextInt(); //5
+        int K = sc.nextInt(); //17
+        int[] time = new int[100001];
         int[] parent = new int[100001];
 
-        Arrays.fill(dist, -1);
-        dist[N] = 0;
-        Q.offer(N);
-        while (!Q.isEmpty()) {
-            int cur = Q.poll();
-            if (cur == K) {
+        Arrays.fill(time, -1);
+        time[N] = 0;
+        q.offer(N);
+        while (!q.isEmpty()) {
+            int cur = q.poll();
+            if (cur == K) { //도착
                 StringBuilder sb = new StringBuilder();
-                System.out.println(dist[cur]);
+                System.out.println(time[cur]);
                 while (cur != N) {
                     sb.insert(0, cur + " ");
                     cur = parent[cur];
@@ -36,11 +36,11 @@ public class Main {
                 System.out.print(sb);
                 System.exit(0);
             }
-            for (int n : new int[]{cur - 1, cur + 1, cur * 2}) {
-                if (n < 0 || n > 100000 || dist[n] >= 0) continue;
-                dist[n] = dist[cur] + 1;
-                parent[n] = cur;
-                Q.offer(n);
+            for (int next : new int[]{cur - 1, cur + 1, cur * 2}) {
+                if (next < 0 || next > 100000 || time[next] >= 0) continue;
+                time[next] = time[cur] + 1;
+                parent[next] = cur;
+                q.offer(next);
             }
         }
     }
