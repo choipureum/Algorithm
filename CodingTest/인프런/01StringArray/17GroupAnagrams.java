@@ -1,41 +1,28 @@
 import java.util.*;
+import java.lang.*;
+import java.io.*;
 
-class Main {
-  //Group Anagram
-  public static void main(String[] args) {
-    String[] list = {"eat","tea","tan","ate","nat","bat"};
-    System.out.println(groupAnagrams(list));
-  }
-  public static List<List<String>> groupAnagrams(String[]strs)
-  {
-    //1 ds , ec
-    List<List<String>> result = new ArrayList<>();
-    if(strs ==null || strs.length==0)
-    {
-      return result;
+public class Solution {
+    public static void main(String[] args) {
+        String [] str = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        //System.out.println(solution(nums));
+        //System.out.println(Arrays.toString(solution(nums)));
+        System.out.println(Arrays.deepToString(solution(str)));
     }
-    Map<String,List<String>>map = new HashMap<>();
-    //2
-    for(String str: strs)
-    {
-      char[] charArr = str.toCharArray();
-      Arrays.sort(charArr); // [a,e,t]
-      String key = String.valueOf(charArr); //"aet"
-      if(map.containsKey(key))
-      {
-        map.get(key).add(str);
-      }
-      else
-      {
-        List<String> list = new ArrayList<>();
-        list.add(str);
-        map.put(key,list);
-      }
+    public static String[][] solution(String[] nums){
+        Map<String,List<String>> map = new HashMap<>();
+        
+        for(int i=0;i<nums.length;i++){
+            char [] ch = String.valueOf(nums[i]).toCharArray();
+            Arrays.sort(ch);
+            String key = String.valueOf(ch);
+            if(!map.containsKey(key)){
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(nums[i]);
+        }
+        return map.values().stream().map(x->x.toArray(new String[x.size()])).toArray(String[][]::new);
     }
-    result.addAll(map.values());
-
-    return result;
-  }
+        
 }
-
 
